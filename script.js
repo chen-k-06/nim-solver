@@ -43,6 +43,13 @@ function nim_sum(numbers) {
 }
 
 document.getElementById("enter1").addEventListener("click", () => {
+    // add new user prompting
+    let label2 = document.createElement("label");
+    label2.for = quantity;
+    label2.textContent = "For each pile, enter how many stones: ";
+    document.body.appendChild(label2);
+
+    // create new numeric input boxes
     let enter1 = document.getElementById("enter1");
     let value = (document.getElementById("quantity")).value;
     for (let i = 0; i < value; i++) {
@@ -60,17 +67,14 @@ document.getElementById("enter1").addEventListener("click", () => {
     console.log("Next round of input created");
     enter1.disabled = true;
 
-    let label2 = document.createElement("label");
-    label2.for = quantity;
-    label2.textContent = "For each pile, enter how many stones: ";
-    document.body.appendChild(label2);
-
+    // create 2nd input button
     let enter2 = document.createElement("button");
     enter2.id = "enter2"
     enter2.textContent = "Enter"
     document.body.appendChild(enter2);
 
     document.getElementById("enter2").addEventListener("click", () => {
+        // parse values
         values = []
         for (let i = 0; i < inputs.length; i++) {
             values.push(parseInt(inputs[i].value))
@@ -91,13 +95,13 @@ document.getElementById("enter1").addEventListener("click", () => {
         document.body.appendChild(result_text);
         // enter2.disabled = true;
 
-        // refresh button
-        let tryAgain = document.createElement("button");
-        tryAgain.id = "try-again"
-        tryAgain.textContent = "Play again ↻"
-        document.body.appendChild(tryAgain);
-        tryAgain.addEventListener("click", () => {
-            location.reload();
-        });
+        // // refresh button
+        // let tryAgain = document.createElement("button");
+        // tryAgain.id = "try-again"
+        // tryAgain.textContent = "Play again ↻"
+        // document.body.appendChild(tryAgain);
+        // tryAgain.addEventListener("click", () => {
+        //     location.reload();
+        // });
     });
 });
