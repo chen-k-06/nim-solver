@@ -60,6 +60,11 @@ document.getElementById("enter1").addEventListener("click", () => {
     console.log("Next round of input created");
     enter1.disabled = true;
 
+    let label2 = document.createElement("label");
+    label2.for = quantity;
+    label2.textContent = "For each pile, enter how many stones: ";
+    document.body.appendChild(label2);
+
     let enter2 = document.createElement("button");
     enter2.id = "enter2"
     enter2.textContent = "Enter"
@@ -71,6 +76,8 @@ document.getElementById("enter1").addEventListener("click", () => {
             values.push(parseInt(inputs[i].value))
         }
         console.log("Values: ", values)
+
+        // determine if first or second player game
         let sum = nim_sum(values);
         console.log("Sum: ", sum);
         let result_text = document.createElement("p");
@@ -82,5 +89,15 @@ document.getElementById("enter1").addEventListener("click", () => {
             result_text.textContent = "This is a first player game.";
         }
         document.body.appendChild(result_text);
+        // enter2.disabled = true;
+
+        // refresh button
+        let tryAgain = document.createElement("button");
+        tryAgain.id = "try-again"
+        tryAgain.textContent = "Play again ↻"
+        document.body.appendChild(tryAgain);
+        tryAgain.addEventListener("click", () => {
+            location.reload();
+        });
     });
 });
