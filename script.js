@@ -83,10 +83,10 @@ document.getElementById("enter1").addEventListener("click", () => {
         let result_text = document.createElement("p");
 
         if (sum == 0) {
-            result_text.textContent = "This is a second player game.";
+            result_text.textContent = `${values} is a second player game.`;
         }
         else {
-            result_text.textContent = "This is a first player game.";
+            result_text.textContent = `${values} is a first player game.`;
         }
         document.body.appendChild(result_text);
         // enter2.disabled = true;
