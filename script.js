@@ -87,10 +87,22 @@ document.getElementById("enter1").addEventListener("click", () => {
         let result_text = document.createElement("p");
 
         if (sum == 0) {
-            result_text.textContent = `${values} is a second player game.`;
+            let nextMove = getNextMove(values, sum);
+            if (nextMove[1] == 1) {
+                result_text.textContent = `${values} is a second player game. Removing ${nextMove[1]} stone from pile ${nextMove[0] + 1} will create a first player game.`;
+            }
+            else {
+                result_text.textContent = `${values} is a second player game. Removing ${nextMove[1]} stones from pile ${nextMove[0] + 1} will create a first player game.`;
+            }
         }
         else {
-            result_text.textContent = `${values} is a first player game.`;
+            let nextMove = getNextMove(values, sum);
+            if (nextMove[1] == 1) {
+                result_text.textContent = `${values} is a first player game. Removing ${nextMove[1]} stone from pile ${nextMove[0] + 1} will create a second player game.`;
+            }
+            else {
+                result_text.textContent = `${values} is a first player game. Removing ${nextMove[1]} stones from pile ${nextMove[0] + 1} will create a second player game.`;
+            }
         }
         document.body.appendChild(result_text);
         // enter2.disabled = true;
@@ -105,3 +117,35 @@ document.getElementById("enter1").addEventListener("click", () => {
         // });
     });
 });
+
+/**
+ * Determines the optimal move in a Nim game based on the current nim-sum.
+ *
+ * @param {number[]} arr - Array representing the piles, where each element is the number of objects in that pile.
+ * @param {number} sum - The current nim-sum of `arr`.
+ *   - If `sum` is 0, returns a move that turns the position into a winning (first-player) position.
+ *   - If `sum` is nonzero, returns a move that turns the position into a losing (second-player) position.
+ * @returns {[number, number]} A tuple [pileIndex, removeCount] for the move to make, 
+ *   or [-1, -1] if no valid move is found.
+ */
+function getNextMove(arr, sum) {
+    for (let i = 0; i < arr.length; i++) { // loop through piles
+        for (let j = 1; j <= arr[i]; j++) { // gradually reduce from pile i
+            let arr_copy = [...arr];
+            arr_copy[i] -= j;
+            let position = nim_sum(arr_copy);
+
+            if (sum == 0) {
+                if (position != 0) {
+                    return [i, j];
+                }
+            }
+            else {
+                if (position == 0) {
+                    return [i, j];
+                }
+            }
+        }
+    }
+    return [-1, -1];
+}
