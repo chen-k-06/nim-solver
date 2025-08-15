@@ -1,3 +1,4 @@
+# Nim
 Nim is a solved combinatorial game where players gradually remove objects from piles or "heaps" until none remain. The player who takes the final objects, such that there are no more objects the next player could take, wins. Learn more about Nim here: https://en.wikipedia.org/wiki/Nim
 
 ---
