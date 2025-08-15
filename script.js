@@ -13,9 +13,12 @@ function nim_sum(numbers) {
     console.log("binarys: ", binary_nums);
 
     let result = 0;
+    let ones_count = 0;
+    let zero_count = 0;
+
     while (true) {
-        let ones_count = 0;
-        let zero_count = 0;
+        ones_count = 0;
+        zero_count = 0;
 
         // binary XOR
         for (let i = 0; i < binary_nums.length; i++) {
@@ -79,15 +82,23 @@ document.getElementById("enter1").addEventListener("click", () => {
         for (let i = 0; i < inputs.length; i++) {
             values.push(parseInt(inputs[i].value))
         }
-        console.log("Values: ", values)
+        console.log(`Values: ${values}`);
+        let result_text = document.createElement("p");
+
+        // check if game over
+        let gameOver = isGameOver(values);
+        if (gameOver) {
+            result_text.textContent = `Game over!`;
+            document.body.appendChild(result_text);
+            return;
+        }
 
         // determine if first or second player game
         let sum = nim_sum(values);
         console.log("Sum: ", sum);
-        let result_text = document.createElement("p");
+        let nextMove = getNextMove(values, sum);
 
         if (sum == 0) {
-            let nextMove = getNextMove(values, sum);
             if (nextMove[1] == 1) {
                 result_text.textContent = `${values} is a second player game. Removing ${nextMove[1]} stone from pile ${nextMove[0] + 1} will create a first player game.`;
             }
@@ -96,7 +107,6 @@ document.getElementById("enter1").addEventListener("click", () => {
             }
         }
         else {
-            let nextMove = getNextMove(values, sum);
             if (nextMove[1] == 1) {
                 result_text.textContent = `${values} is a first player game. Removing ${nextMove[1]} stone from pile ${nextMove[0] + 1} will create a second player game.`;
             }
@@ -104,6 +114,7 @@ document.getElementById("enter1").addEventListener("click", () => {
                 result_text.textContent = `${values} is a first player game. Removing ${nextMove[1]} stones from pile ${nextMove[0] + 1} will create a second player game.`;
             }
         }
+
         document.body.appendChild(result_text);
         // enter2.disabled = true;
 
@@ -148,4 +159,15 @@ function getNextMove(arr, sum) {
         }
     }
     return [-1, -1];
+}
+
+function isGameOver(arr) {
+    let count = 0;
+    for (let val of arr) {
+        if (val === 0) count++;
+    }
+    if (count == arr.length) {
+        return true;
+    }
+    return false;
 }
