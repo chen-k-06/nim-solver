@@ -8,4 +8,5 @@ For example, let's look at the game 1 2 1 (3 piles of stones, two of which conta
 
 <img width="1464" height="644" alt="image" src="https://github.com/user-attachments/assets/6c3fcbc3-4e55-4ee7-be3b-78621c3bd27e" />
 
+---
 Try the solver (and beat all your friends at nim!) here: https://chen-k-06.github.io/nim-solver/
